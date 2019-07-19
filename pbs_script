@@ -1,0 +1,9 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=12,walltime=00:02:00
+#PBS -q batch
+#PBS -N videoProcessingResults
+#PBS -j oe
+#PBS -V
+
+cd ~/parallelFinalProject
+./videoProcessing.cx

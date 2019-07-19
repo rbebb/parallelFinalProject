@@ -1,3 +1,3 @@
 # parallelFinalProject
 
-This is a test
+Program that processes a video frame by frame with a specified kernel.
