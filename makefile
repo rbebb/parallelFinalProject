@@ -4,7 +4,7 @@ LDC=gcc
 LDP=g++
 LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc
 FLAGS= -fopenmp -I/usr/include/opencv
-PROGC = videoProcessing.cx
+PROGC = videoProcessing.x
 OBJSC = videoProcessing.o imageTools.o
 
 RM = /bin/rm
