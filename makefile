@@ -4,8 +4,8 @@ LDC=mpicc
 LDP=mpicc
 LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc
 FLAGS= -fopenmp -I/usr/include/opencv
-PROGC = videoProcessing.x
-OBJSC = videoProcessing.o imageTools.o convolution.o
+PROGC = testMain.x
+OBJSC = testMain.o imageTools.o convolution.o
 
 RM = /bin/rm
 

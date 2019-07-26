@@ -3,6 +3,15 @@
 #include <omp.h>
 #include "convolution.h"
 
+/**
+ * Function that applies a supplied kernel to a supplied image.
+ * 
+ * @param *img buffer containing image data
+ * @param *dims array of length 2 holding height and width of the image
+ * @param **kernel odd-sized square matrix holding transformation kernel
+ * @param k width of the kernel
+ * @return *filtered filtered image
+ */
 int *convolute_image(int *img, int *dims, double **kernel, int k) {
     int a;
     int *filtered;
