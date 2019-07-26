@@ -10,17 +10,22 @@
 using namespace cv;
 using namespace std;
 
-extern "C" int* videoProcessing(char* filename, int* dims) {
-    VideoCapture video("test.mov");
+extern "C" int* videoLoader(char* filename, int* dims, int frame) {
+    VideoCapture video(filename);
 
     // Check if file can open
-    if(!video.isOpened()) {
+    if (!video.isOpened()) {
         cout <<  "Error opening file" << std::endl;
-        return -1;
     }
 
-    // Test Code from helper file used for previous assignment
-    /*
+    video.set(CV_CAP_PROP_POS_FRAMES, frame);
+    Mat frame;
+    video >> frame;
+    
+    // Close VideoCapture and close all frames
+    video.release();
+    destroyAllWindows();
+
     int width=gray_image.size().width;
     int height=gray_image.size().height;
     dims[0]=height;
@@ -28,8 +33,6 @@ extern "C" int* videoProcessing(char* filename, int* dims) {
 
     cout << "Height: " << dims[0] << endl;
     cout << "Width : " << dims[1] << endl;
-    // namedWindow( "Original Image", WINDOW_AUTOSIZE );// Create a window for display.
-    // imshow( "Original Image", gray_image );                   // Show our image inside it. 
  
     // Allocate 2d array
     int *matrix;
@@ -46,11 +49,6 @@ extern "C" int* videoProcessing(char* filename, int* dims) {
             matrix[i*width+j] = intensity;
         }
     }
-    */
-
-    // Close VideoCapture and close all frames
-    video.release();
-    destroyAllWindows();
 
     return matrix;
 }
@@ -74,3 +72,24 @@ extern "C" void matToImage(char* filename, int* mat, int* dims){
     return;
 }
 */
+extern "C" void matToVideo(char* filename, int* mat, int* dims){
+    int height=dims[0];
+    int width=dims[1];
+    Mat video(height, width, CV_8UC1, Scalar(0,0,0));
+
+    for(int i=0;i<height;i++){
+        for(int j=0;j<width;j++){
+            image.at<uchar>(i,j) = (int)mat[i*width+j];
+        }
+    } 
+
+    // Save video
+    imwrite(filename, video);
+
+    return;
+}
+
+extern "C" double frameCount(char* fileName) {
+    VideoCapture video(fileName);
+    return video.get(CV_CAP_PROP_FRAME_COUNT);
+}
