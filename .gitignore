@@ -7,3 +7,6 @@
 
 # output files
 videoProcessingResults.o*
+
+# images
+*.jpg

@@ -2,8 +2,8 @@ CC=mpicc
 CPP=g++
 LDC=mpicc
 LDP=mpicc
-LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc
-FLAGS= -fopenmp -I/usr/include/opencv
+LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc -g
+FLAGS= -fopenmp -I/usr/include/opencv -g
 PROGC = testMain.x
 OBJSC = testMain.o imageTools.o convolution.o
 

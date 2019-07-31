@@ -18,17 +18,19 @@ int *convolute_image(int *img, int *dims, double **kernel, int k) {
 
     filtered = (int *) malloc(dims[0] * dims[1] * sizeof(int));
 
-    #pragma omp parallel for shared(filtered)
+    #pragma omp parallel for shared(filtered) private(a)
     for(int i = 0; i < dims[0]; i++) {
         for(int j = 0; j < dims[1]; j++) {
             a = 0.0;
 
-            for(int ki = -k; ki <= k; ki++) {
-                for(int kj = -k; kj <= k; kj++) {
+            for(int ki = -(k/2); ki <= (k/2); ki++) {
+                for(int kj = -(k/2); kj <= (k/2); kj++) {
                     if((i + ki < 0) || (j + kj < 0) || (i + ki > dims[0] - 1) || (j + kj > dims[1] - 1)) {
                         continue;
                     } else {
-                        a += kernel[kj + 1][ki + 1] * img[(i + ki) * dims[1] + (j + kj)];
+                        double kval = kernel[kj + (k/2)][ki + (k/2)];
+                        double ival = img[(i + ki) * dims[1] + (j + kj)];
+                        a += kval * ival;
                     }
                 }
             }
