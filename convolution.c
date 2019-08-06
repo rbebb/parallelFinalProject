@@ -13,7 +13,7 @@
  * @return *filtered filtered image
  */
 int *convolute_image(int *img, int *dims, double **kernel, int k) {
-    int a;
+    double a;
     int *filtered;
 
     filtered = (int *) malloc(dims[0] * dims[1] * sizeof(int));
