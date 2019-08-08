@@ -1,11 +1,9 @@
-CC=gcc
-CPP=g++
-LDC=gcc
-LDP=g++
-LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc
-FLAGS= -fopenmp -I/usr/include/opencv
-PROGC = videoProcessing.x
-OBJSC = videoProcessing.o imageTools.o
+CPP=mpicxx
+LDP=mpicxx
+LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc -g
+FLAGS= -fopenmp -I/usr/include/opencv -g
+PROGC = testMain.x
+OBJSC = testMain.o imageTools.o convolution.o
 
 RM = /bin/rm
 
@@ -14,8 +12,6 @@ all: $(PROGC)
 
 $(PROGC): $(OBJSC)
 	$(LDP) $^ $(LD_FLAGS) -o $@
-%.o: %.c
-	$(CC) $(FLAGS) -c $^ -o $@
 %.o: %.cpp
 	$(CPP) $(FLAGS) -c $^ -o $@
 

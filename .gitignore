@@ -1,3 +1,12 @@
+# editor files
+.vscode/
+
+# object and executable files
 **/*.x
 **/*.o
+
+# output files
 videoProcessingResults.o*
+
+# images
+*.jpg

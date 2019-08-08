@@ -6,4 +6,4 @@
 #PBS -V
 
 cd ~/parallelFinalProject
-./videoProcessing.cx
+./testMain.x
