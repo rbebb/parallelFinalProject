@@ -1,12 +1,13 @@
 #include <iostream>
+#include <cstdlib>
 #include <string>
 #include <cmath>
 #include <opencv2/opencv.hpp>
-//#include "opencv2/highgui/highgui.hpp"
-//#include "opencv2/imgproc/imgproc.hpp"
-//#include "opencv2/core/core.hpp"
-//#include "opencv2/video/video.hpp"
-//#include "opencv2/imgcodecs/imgcodecs.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/core/core.hpp"
+#include "opencv2/video/video.hpp"
+// #include "opencv2/imgcodecs/imgcodecs.hpp"
 
 using namespace cv;
 using namespace std;
@@ -65,42 +66,15 @@ void matToVideo(string filename, int* mat, int* dims, int frameCount) {
     videoOut.release();
     destroyAllWindows();
 
-    // int height=dims[0];
-    // int width=dims[1];
-    // Mat video(height, width, CV_8UC1, Scalar(0,0,0));
-
-    // for(int i=0;i<height;i++){
-    //     for(int j=0;j<width;j++){
-    //         image.at<uchar>(i,j) = (int)mat[i*width+j];
-    //     }
-    // }
-
     return;
 }
 
-void openVideo(string filename) {
-    VideoCapture videoIn(filename);
-
-    // Check if file can open
-    if (!videoIn.isOpened()) {
-        cout <<  "Error opening file" << std::endl;
-    }
-}
-
-void closeVideo(string filename) {
-    // Close VideoCapture and close all frames
-    video.release();
-    destroyAllWindows();
-}
-
-double frameCount(VideoCapture video) {
+int frameCount(VideoCapture video) {
     return video.get(CV_CAP_PROP_FRAME_COUNT);
 }
 
 /*
 void matToImage(string filename, int* mat, int* dims){
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     int height=dims[0];
     int width=dims[1];
     Mat image(height, width, CV_8UC1, Scalar(0,0,0));
