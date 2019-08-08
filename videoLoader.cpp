@@ -11,42 +11,26 @@
 using namespace cv;
 using namespace std;
 
-Vector<Mat> images;
+int* getFrame(VideoCapture videoIn, int* dims, int frame) {
+    videoIn.set(CV_CAP_PROP_POS_FRAMES, frame);
+    videoIn >> frame;
 
-int* videoLoader(string filename, int* dims, int frame) {
-    VideoCapture video(filename);
+    Mat grayImage;
+    cvtColor(frame, grayImage, CV_BGR2GRAY);
 
-    // Check if file can open
-    if (!video.isOpened()) {
-        cout <<  "Error opening file" << std::endl;
-    }
-
-    video.set(CV_CAP_PROP_POS_FRAMES, frame);
-    Mat frame;
-    video >> frame;
-    
-    // Close VideoCapture and close all frames
-    video.release();
-    destroyAllWindows();
-
-
-/*
-    int width=gray_image.size().width;
-    int height=gray_image.size().height;
-    dims[0]=height;
-    dims[1]=width;
-
-    cout << "Height: " << dims[0] << endl;
-    cout << "Width : " << dims[1] << endl;
+    int width = grayImage.size().width;
+    int height = grayImage.size().height;
+    dims[0] = height;
+    dims[1] = width;
  
-    // Allocate 2d array
+    // Allocate 2D array
     int *matrix;
     matrix = (int*) malloc(height*width*sizeof(*matrix));
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            int intensity=gray_image.at<uchar>(i,j);
-            if (intensity > 255) {
-                intensity = 255;
+            int intensity = grayImage.at<uchar>(i,j);
+            if (intensity > 254) {
+                intensity = 254;
             }
             if (intensity < 0) {
                 intensity = 0;
@@ -58,7 +42,65 @@ int* videoLoader(string filename, int* dims, int frame) {
     return matrix;
 }
 
+void matToVideo(string filename, int* mat, int* dims, int frameCount) {
+    // Place this line outside of function and pass in VideoWriter object?
+    VideoWriter videoOut("output.mp4", CV_FOURCC('M', 'J', 'P', 'G'), 30, Size(dims[1], dims[0]));
+
+    int height = dims[0];
+    int width = dims[1];
+
+    Mat frame;
+
+    for (int i = 0; i < frameCount; i++) {
+        int *matrix;
+        matrix = (int*) malloc(height*width*sizeof(*matrix));
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                frame.at<uchar>(i,j) = (int) matrix[i*width*j];
+            }
+        }
+        videoOut.write(frame);
+    }
+
+    videoOut.release();
+    destroyAllWindows();
+
+    // int height=dims[0];
+    // int width=dims[1];
+    // Mat video(height, width, CV_8UC1, Scalar(0,0,0));
+
+    // for(int i=0;i<height;i++){
+    //     for(int j=0;j<width;j++){
+    //         image.at<uchar>(i,j) = (int)mat[i*width+j];
+    //     }
+    // }
+
+    return;
+}
+
+void openVideo(string filename) {
+    VideoCapture videoIn(filename);
+
+    // Check if file can open
+    if (!videoIn.isOpened()) {
+        cout <<  "Error opening file" << std::endl;
+    }
+}
+
+void closeVideo(string filename) {
+    // Close VideoCapture and close all frames
+    video.release();
+    destroyAllWindows();
+}
+
+double frameCount(VideoCapture video) {
+    return video.get(CV_CAP_PROP_FRAME_COUNT);
+}
+
+/*
 void matToImage(string filename, int* mat, int* dims){
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     int height=dims[0];
     int width=dims[1];
     Mat image(height, width, CV_8UC1, Scalar(0,0,0));
@@ -75,26 +117,4 @@ void matToImage(string filename, int* mat, int* dims){
     //waitKey(0);                                          // Wait for a keystroke in the window
     return;
 }
-*/
-
-void matToVideo(string filename, int* mat, int* dims){
-    int height=dims[0];
-    int width=dims[1];
-    Mat video(height, width, CV_8UC1, Scalar(0,0,0));
-
-    for(int i=0;i<height;i++){
-        for(int j=0;j<width;j++){
-            image.at<uchar>(i,j) = (int)mat[i*width+j];
-        }
-    } 
-
-    // Save video
-    imwrite(filename, video);
-
-    return;
-}
-
-double frameCount(string fileName) {
-    VideoCapture video(fileName);
-    return video.get(CV_CAP_PROP_FRAME_COUNT);
-}
+/*
