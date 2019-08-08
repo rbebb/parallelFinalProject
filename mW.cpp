@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
+#include <cstdlib>
 #include <omp.h>
 #include "mpi.h"
 
@@ -28,8 +28,8 @@ int main(int argc, char** argv) {
 	if (myrank == 0) {
 		int num_frames, current_frame;
 		//OPENCV CALLS to open the video, get number of frames, get dimensions
-		mat = (int*)malloc(dims[0] * dims[1] * sizeof(int));
-		answer = (int*)malloc(dims[0] * dims[1] * sizeof(int));
+		mat = (int*) malloc(dims[0] * dims[1] * sizeof(int));
+		answer = (int*) malloc(dims[0] * dims[1] * sizeof(int));
 
 		MPI_Bcast(dims, 2, MPI_INT, 0, MPI_COMM_WORLD);//make sure everyone knows the resolution
 
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 			// Set the new image as the appropriate frame somewhere new?
 			if (current_frame < num_frames) {
 				mat = 0; //method call to get next mat from video file
-				MPI_Isend(mat, dims[1] * dims[0]), MPI_INT, status.MPI_SOURCE, 0, MPI_COMM_WORLD, & request);
+				MPI_Isend(mat, dims[1] * dims[0], MPI_INT, status.MPI_SOURCE, 0, MPI_COMM_WORLD, & request);
 				//mayhaps an array where a ranks index holds the number of the frame they're convolving?
 				current_frame++;
 			}
