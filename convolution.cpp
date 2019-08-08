@@ -1,10 +1,7 @@
 #include <iostream>
 #include <cstdlib>
-#include <string>
 #include <omp.h>
 #include "convolution.hpp"
-
-using namespace std;
 
 /**
  * Function that applies a supplied kernel to a supplied image.
@@ -19,7 +16,7 @@ int *convolute_image(int *img, int *dims, double **kernel, int k) {
     double a;
     int *filtered;
 
-    filtered = (int*) malloc(dims[0] * dims[1] * sizeof(int));
+    filtered = (int *) malloc(dims[0] * dims[1] * sizeof(int));
 
     #pragma omp parallel for shared(filtered) private(a)
     for(int i = 0; i < dims[0]; i++) {

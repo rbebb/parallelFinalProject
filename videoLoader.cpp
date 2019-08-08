@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <cmath>
 #include <opencv2/opencv.hpp>
 //#include "opencv2/highgui/highgui.hpp"
@@ -13,7 +12,7 @@ using namespace std;
 
 Vector<Mat> images;
 
-int* videoLoader(string filename, int* dims, int frame) {
+int* videoLoader(char* filename, int* dims, int frame) {
     VideoCapture video(filename);
 
     // Check if file can open
@@ -30,7 +29,7 @@ int* videoLoader(string filename, int* dims, int frame) {
     destroyAllWindows();
 
 
-/*
+///////////////////////////////////////////////////////////////////
     int width=gray_image.size().width;
     int height=gray_image.size().height;
     dims[0]=height;
@@ -58,7 +57,10 @@ int* videoLoader(string filename, int* dims, int frame) {
     return matrix;
 }
 
-void matToImage(string filename, int* mat, int* dims){
+///////////////////////////////////////////////////////////////////
+
+/*
+extern "C" void matToImage(char* filename, int* mat, int* dims){
     int height=dims[0];
     int width=dims[1];
     Mat image(height, width, CV_8UC1, Scalar(0,0,0));
@@ -76,8 +78,7 @@ void matToImage(string filename, int* mat, int* dims){
     return;
 }
 */
-
-void matToVideo(string filename, int* mat, int* dims){
+void matToVideo(char* filename, int* mat, int* dims){
     int height=dims[0];
     int width=dims[1];
     Mat video(height, width, CV_8UC1, Scalar(0,0,0));
@@ -94,7 +95,7 @@ void matToVideo(string filename, int* mat, int* dims){
     return;
 }
 
-double frameCount(string fileName) {
+double frameCount(char* fileName) {
     VideoCapture video(fileName);
     return video.get(CV_CAP_PROP_FRAME_COUNT);
 }
