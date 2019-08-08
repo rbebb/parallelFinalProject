@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "convolution.h"
+#include <iostream>
+#include <cstdlib>
+#include "convolution.hpp"
 
 int* imageToMat(char* filename,int* dims);
 void matToImage(char* filename, int* mat, int* dims);
@@ -12,10 +12,10 @@ int main(int argc, char **argv) {
     char *name = "test.jpg";
     int *dims = (int*) malloc(2*sizeof(int));
     int total = 0;
-    double **kernel = malloc(3*sizeof(double*));
+    double **kernel = (int**) malloc(3*sizeof(double*));
     // double kernel[3][3] = {{1.0/9.0,1.0/9.0,1.0/9.0},{1.0/9.0,1.0/9.0,1.0/9.0},{1.0/9.0,1.0/9.0,1.0/9.0}}; // blur
     for(int i = 0; i < 3; i++) {
-        kernel[i] = malloc(3 * sizeof(double));
+        kernel[i] = (int*) malloc(3 * sizeof(double));
     }
     double value = 1.0/9.0;
     for(int i = 0; i < 3; i++) {

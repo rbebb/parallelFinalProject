@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
+#include <cstdlib>
 #include <omp.h>
-#include "convolution.h"
+#include "convolution.hpp"
 
 /**
  * Function that applies a supplied kernel to a supplied image.

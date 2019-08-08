@@ -1,6 +1,4 @@
-CC=mpicc
 CPP=g++
-LDC=mpicc
 LDP=mpicc
 LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc -g
 FLAGS= -fopenmp -I/usr/include/opencv -g
@@ -14,8 +12,6 @@ all: $(PROGC)
 
 $(PROGC): $(OBJSC)
 	$(LDP) $^ $(LD_FLAGS) -o $@
-%.o: %.c
-	$(CC) $(FLAGS) -c $^ -o $@
 %.o: %.cpp
 	$(CPP) $(FLAGS) -c $^ -o $@
 
