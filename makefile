@@ -2,8 +2,8 @@ CPP=mpicxx
 LDP=mpicxx
 LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc -g
 FLAGS= -fopenmp -I/usr/include/opencv -g
-PROGC = testMain.x
-OBJSC = testMain.o imageTools.o convolution.o
+PROGC = mW.x
+OBJSC = mW.o videoLoader.o convolution.o
 
 RM = /bin/rm
 

@@ -14,10 +14,12 @@ using namespace std;
 
 int* getFrame(VideoCapture videoIn, int* dims, int frame) {
     videoIn.set(CV_CAP_PROP_POS_FRAMES, frame);
-    videoIn >> frame;
+
+    Mat color;
+    videoIn >> color;
 
     Mat grayImage;
-    cvtColor(frame, grayImage, CV_BGR2GRAY);
+    cvtColor(color, grayImage, CV_BGR2GRAY);
 
     int width = grayImage.size().width;
     int height = grayImage.size().height;
@@ -25,8 +27,7 @@ int* getFrame(VideoCapture videoIn, int* dims, int frame) {
     dims[1] = width;
  
     // Allocate 2D array
-    int *matrix;
-    matrix = (int*) malloc(height*width*sizeof(*matrix));
+    int *matrix = (int*) malloc(height*width*sizeof(*matrix));
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             int intensity = grayImage.at<uchar>(i,j);
@@ -91,4 +92,4 @@ void matToImage(string filename, int* mat, int* dims){
     //waitKey(0);                                          // Wait for a keystroke in the window
     return;
 }
-/*
+*/
