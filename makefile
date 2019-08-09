@@ -1,7 +1,7 @@
-CPP=mpicxx
-LDP=mpicxx
-LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc -g
-FLAGS= -fopenmp -I/usr/include/opencv -g
+CPP=tau_cxx.sh
+LDP=tau_cxx.sh
+LD_FLAGS = -fopenmp -lstdc++ -lopencv_core -lopencv_highgui -lopencv_imgproc
+FLAGS= -fopenmp -I/usr/include/opencv
 PROGC = mW.x
 OBJSC = mW.o videoLoader.o convolution.o
 

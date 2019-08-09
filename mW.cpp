@@ -66,7 +66,6 @@ int main(int argc, char** argv) {
 		}
 
 		num_frames = videoIn.get(CV_CAP_PROP_FRAME_COUNT);
-		cout << num_frames << std::endl;
 
 		Mat temp;
 		videoIn >> temp;
@@ -109,9 +108,7 @@ int main(int argc, char** argv) {
 				}
 			}
 
-			cout << current_frame << std::endl;
 			MPI_Send(mat, dims[0] * dims[1], MPI_INT, i, 0, MPI_COMM_WORLD);
-			cout << myrank << "Receive" << std::endl;
 			current_frame++;
 			rowsSent++;
 			free(mat);
@@ -193,7 +190,6 @@ int main(int argc, char** argv) {
 						}
 					}
 
-					cout << current_frame << std::endl;
 					MPI_Send(mat, dims[1] * dims[0], MPI_INT, i, 0, MPI_COMM_WORLD);
 					current_frame++;
 					rowsSent++;
@@ -221,7 +217,6 @@ int main(int argc, char** argv) {
 		answer = (int*) malloc(dims[0] * dims[1] * sizeof(int));
 		while (1) {
 			MPI_Recv(mat, dims[0] * dims[1], MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
-			cout << myrank << "Receive" << std::endl;
 			if (mat[0] == -1) {
 				break;
 			}
