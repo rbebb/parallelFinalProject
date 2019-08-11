@@ -15,7 +15,7 @@ using namespace std;
  * @param k width of the kernel
  * @return *filtered filtered image
  */
-int *convolute_image(int *img, int *dims, double **kernel, int k) {
+int* convolute_image(int *img, int *dims, double **kernel, int k) {
     double a;
     int *filtered;
 
