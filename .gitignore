@@ -11,6 +11,7 @@ test/
 # output files
 videoProcessingResults.o*
 
-# images
+# images and videos
 *.jpg
 *.avi
+*.mp4
