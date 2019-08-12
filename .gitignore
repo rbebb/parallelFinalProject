@@ -1,6 +1,9 @@
 # editor files
 .vscode/
 
+# testing folder
+test/
+
 # object and executable files
 **/*.x
 **/*.o
