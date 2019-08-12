@@ -14,10 +14,6 @@
 using namespace cv;
 using namespace std;
 
-// int* getFrame(VideoCapture videoIn, int* dims, int frame);
-// void matToVideo(string filename, int* mat, int* dims, int frameCount);
-// int frameCount(VideoCapture video);
-
 int main(int argc, char** argv) {
 
 	// Start up MPI
@@ -49,7 +45,6 @@ int main(int argc, char** argv) {
 	int* answer;
 
 	if (myrank == 0) {
-		int done = 0;
 		int num_frames = 0;
 		int current_frame = 0;
 
@@ -74,10 +69,6 @@ int main(int argc, char** argv) {
 		MPI_Bcast(dims, 2, MPI_INT, 0, MPI_COMM_WORLD);//make sure everyone knows the resolution
 
 		for (int i = 1; i < numranks; i++) {
-			// Getter method for a frame's matrix
-			// mat = getFrame(videoIn, dims, current_frame);
-
-
 			videoIn.set(CV_CAP_PROP_POS_FRAMES, current_frame);
 
 			Mat color;
@@ -92,7 +83,6 @@ int main(int argc, char** argv) {
 			dims[1] = width;
 		
 			// Allocate 2D array
-			// int *mat = (int*) malloc(height*width*sizeof(*matrix));
 			mat = (int*) malloc(height*width*sizeof(*mat));
 			for (int j = 0; j < height; j++) {
 				for (int k = 0; k < width; k++) {
@@ -124,7 +114,6 @@ int main(int argc, char** argv) {
 				rowsReceived++;
 
 				Mat frame(dims[0], dims[1], CV_8UC1, Scalar(0, 0, 0));
-				// int *matrix = (int*) malloc(dims[0]*dims[1]*sizeof(int*));
 				for (int j = 0; j < dims[0]; j++) {
 					for (int k = 0; k < dims[1]; k++) {
 						frame.at<uchar>(j, k) = (int) answer[j*dims[1]+k];
@@ -175,8 +164,8 @@ int main(int argc, char** argv) {
 					for (int j = 0; j < height; j++) {
 						for (int k = 0; k < width; k++) {
 							int intensity = grayImage.at<uchar>(j,k);
-							if (intensity > 254) {
-								intensity = 254;
+							if (intensity > 255) {
+								intensity = 255;
 							}
 							if (intensity < 0) {
 								intensity = 0;
@@ -189,15 +178,10 @@ int main(int argc, char** argv) {
 					current_frame++;
 					rowsSent++;
 					ranksWorking++;
-					// Perhaps an array where a rank's index holds the number of the frame they're convolving?
 					free(mat);
 				}
 			}
 		}
-
-		// for (int i = 0; i < num_frames; i++) {
-		// 	videoOut.write(frames[i]);
-		// }
 
 		// Close VideoCapture and close all frames
     	videoIn.release();
