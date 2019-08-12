@@ -2,7 +2,7 @@
 .vscode/
 
 # testing folder
-test/
+#test/
 
 # object and executable files
 **/*.x
