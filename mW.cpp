@@ -49,7 +49,6 @@ int main(int argc, char** argv) {
 	int* answer;
 
 	if (myrank == 0) {
-		Vector<Mat> frames;
 		int done = 0;
 		int num_frames = 0;
 		int current_frame = 0;
@@ -136,10 +135,6 @@ int main(int argc, char** argv) {
 				Mat img = imread("test.jpg");
 				videoOut.write(img);
 				
-				// frames.push_back(img.clone());
-
-				// videoOut.write(img);
-				// free(matrix);
 				free(answer);
 			}
 
