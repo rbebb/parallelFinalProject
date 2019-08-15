@@ -1,6 +1,9 @@
 # editor files
 .vscode/
 
+# testing folder
+test/
+
 # object and executable files
 **/*.x
 **/*.o
@@ -8,6 +11,7 @@
 # output files
 videoProcessingResults.o*
 
-# images
+# images and videos
 *.jpg
 *.avi
+*.mp4
