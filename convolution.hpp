@@ -1,0 +1,1 @@
+int* convolute_image(int *img, int *dims, double **kernel, int k);
